@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SidenavService } from './core/service/sidenav.service';
 
 @Component({
   selector: 'app-root',

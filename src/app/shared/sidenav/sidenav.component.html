@@ -1,0 +1,31 @@
+<div class="sidenav-body-container">
+  <div class="sidenav-body">
+    <img [src]="logoPath">
+
+    <app-sidenav-link routerLink="home">
+      <span icon>
+        <mat-icon fontIcon="home"></mat-icon>
+      </span>
+
+      <span>Home</span>
+    </app-sidenav-link>
+    <app-sidenav-link routerLink="cars">
+      <span icon>
+        <mat-icon fontIcon="directions_car"></mat-icon>
+      </span>
+
+      <span>Carros</span>
+    </app-sidenav-link>
+    <app-sidenav-link routerLink="parts">
+      <span icon>
+        <mat-icon fontIcon="build"></mat-icon>
+      </span>
+
+      <span>Peças</span>
+    </app-sidenav-link>
+  </div>
+</div>
+
+<button class="toggle-button" (click)="this.sidenavService.toggleSidenav()" [class.is-flipped]="sidenavService.isExpanded">
+  <mat-icon icon>chevron_right</mat-icon>
+</button>
