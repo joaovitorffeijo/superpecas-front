@@ -11,6 +11,10 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { SidenavLinkComponent } from './shared/sidenav-link/sidenav-link.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { PartsComponent } from './pages/parts/parts.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { HeaderControlsComponent } from './shared/header-controls/header-controls.component';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { PartsComponent } from './pages/parts/parts.component';
     SidenavComponent,
     SidenavLinkComponent,
     CarsComponent,
-    PartsComponent
+    PartsComponent,
+    HeaderControlsComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +32,9 @@ import { PartsComponent } from './pages/parts/parts.component';
     MatSidenavModule,
     MatButton,
     MatIcon,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
   ],
   providers: [
     provideClientHydration(),
