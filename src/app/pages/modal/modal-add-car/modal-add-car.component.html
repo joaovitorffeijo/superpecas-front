@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="header">
+
+  </div>
+  <div class="body">
+    <div class="mb-3">
+      <label for="modelName">Nome do Modelo*</label>
+      <input
+        class="form-control {{carForm?.get('modelName')?.invalid && carForm?.get('modelName')?.touched ? 'field-error':''}}"
+        type="text" placeholder="Insira o nome da agência" formControlName="modelName">
+      <small class="message-error"
+        *ngIf="carForm?.get('modelName')?.invalid && carForm?.get('modelName')?.touched">
+        {{getErrorMessage('modelName')}}
+      </small>
+    </div>
+  </div>
+</div>

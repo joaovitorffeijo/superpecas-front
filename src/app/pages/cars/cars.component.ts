@@ -3,6 +3,8 @@ import { CarService } from '../../core/service/car.service';
 import { Car } from '../../core/model/car';
 import { Observable, catchError, forkJoin, tap } from 'rxjs';
 import { ApiResponse } from '../../core/model/apiResponse';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAddCarComponent } from '../modal/modal-add-car/modal-add-car.component';
 
 @Component({
   selector: 'app-cars',
@@ -10,22 +12,29 @@ import { ApiResponse } from '../../core/model/apiResponse';
   styleUrl: './cars.component.scss'
 })
 export class CarsComponent {
-  cars: Car[] = [];
 
-  // page control
+  // data
+  cars: Car[] = [];
+  modelName: string = '';
+
+  // page 
+  logoShortPath: string = 'assets/img/super-pecas-logo-short-reverse.png';
   isLoading: boolean = true;
 
   // paginator
   size: number = 10;
   page: number = 0;
   totalElements: number = 0;
-  totalPages: number = 0;
-  last: boolean = false;
-  numberOfElements: number = 0;
-  first: boolean = true;
-  number: number = 0;
+
+  // modal
+  modalRef?: NgbModalRef;
+  modalSize: string = 'md';
+
+  // table
+  displayedColumns: string[] = ['id', 'modelName', 'manufacturer', 'uniqueCode'];
 
   constructor(
+    private modalService: NgbModal,
     private carService: CarService,
   ) {}
 
@@ -46,20 +55,50 @@ export class CarsComponent {
   }
 
   getCars(): Observable<any> {
-    return this.carService.getAllByPage(this.size, this.page).pipe(
+    return this.carService.getAllByPage(this.modelName, this.size, this.page).pipe(
       tap((response: ApiResponse) => {
         this.cars = response.result.content;
         this.totalElements = response.result.totalElements!;
-        this.totalPages = response.result.totalPages!;
-        this.last = response.result.last!;
-        this.numberOfElements = response.result.numberOfElements!;
-        this.first = response.result.first!;
-        this.number = response.result.number!;  
       }),
       catchError((error: any) => {
         throw error;
       })
     );
+  }
+
+  searchByModelName(modelName: string): void {
+    this.changeLoadingValue();
+
+    this.modelName = modelName;
+    this.page = 0;
+
+    this.getData();
+  }
+
+  onAdd(): void {
+    this.modalRef = this.modalService.open(ModalAddCarComponent, { size: this.modalSize, backdrop: 'static' });
+    this.modalSuccess(this.modalRef);
+  }
+
+  modalSuccess(modalRef: NgbModalRef): void {
+    this.modalRef!.result.then(
+      (result) => { },
+      (reason) => {
+        if (reason === 'success') {
+          this.changeLoadingValue();
+          this.getData();
+        }
+      }
+    );
+  }
+
+  onPageChange(event: any): void {
+    this.changeLoadingValue();
+
+    this.page = event.pageIndex;
+    this.size = event.pageSize;
+
+    this.getData();
   }
 
   changeLoadingValue(): void {

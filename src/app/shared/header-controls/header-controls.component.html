@@ -3,9 +3,9 @@
     <button mat-flat-button color="primary">{{addPlaceholder}}</button>
   </div>
   <div class="right">
-    <mat-form-field>
-      <mat-icon matPrefix fontIcon="search"></mat-icon>
-      <input matInput type="search" placeholder="{{searchPlaceholder}}" class="search-input">
-    </mat-form-field>  
+    <div class="search-input">
+      <input type="search" placeholder="{{searchPlaceholder}}" [(ngModel)]="searchTerm" class="search-box" (keyup.enter)="emitSearch()">
+      <button mat-flat-button color="primary" (click)="emitSearch()">Filtrar</button>
+    </div>  
   </div>
 </div>

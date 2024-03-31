@@ -15,8 +15,9 @@ export class CarService {
     private http: HttpClient
   ) { }
 
-  getAllByPage(size: number, page: number): Observable<any> {
+  getAllByPage(modelName: string, size: number, page: number): Observable<any> {
     const params = new HttpParams()
+      .set('modelName', `${modelName}`)
       .set('size', `${size}`)
       .set('page', `${page}`);
 
@@ -25,15 +26,6 @@ export class CarService {
 
   findById(id: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/${this.path}/${id}`);
-  }
-
-  findByModelNameByPage(modelName: string, size: number, page: number): Observable<any> {
-    const params = new HttpParams()
-      .set('modelName', `${modelName}`)
-      .set('size', `${size}`)
-      .set('page', `${page}`);
-
-    return this.http.get(`${environment.apiUrl}/${this.path}/modelName`, { params }).pipe(first());
   }
 
   save(car: Car) {

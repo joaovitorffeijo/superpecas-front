@@ -1,11 +1,45 @@
 <div class="container">
   <div class="header">
     <div class="title">
-
+      <img [src]="logoShortPath">
+      <h1> Listagem de Carros </h1>
     </div>
-    <app-header-controls></app-header-controls>
+    <app-header-controls 
+      addPlaceholder="Adicionar Carro" 
+      searchPlaceholder="Pesquise pelo Nome do Modelo"
+      (onSearch)="searchByModelName($event);"
+      (onAdd)="onAdd()"
+    ></app-header-controls>
   </div>
   <div class="body">
+    <table *ngIf="!isLoading" mat-table [dataSource]="cars">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let car">{{ car.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="modelName">
+        <th mat-header-cell *matHeaderCellDef>Modelo</th>
+        <td mat-cell *matCellDef="let car">{{ car.modelName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="manufacturer">
+        <th mat-header-cell *matHeaderCellDef>Fabricante</th>
+        <td mat-cell *matCellDef="let car">{{ car.manufacturer }}</td>
+      </ng-container>
+      <ng-container matColumnDef="uniqueCode">
+        <th mat-header-cell *matHeaderCellDef>Código Único</th>
+        <td mat-cell *matCellDef="let car">{{ car.uniqueCode }}</td>
+      </ng-container>
 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let car; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="isLoading" class="loader-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
   </div>
+  <mat-paginator [length]="totalElements"
+                 [pageSize]="size"
+                 [pageSizeOptions]="[10, 20, 50, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
 </div>

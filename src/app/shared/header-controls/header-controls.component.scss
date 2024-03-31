@@ -1,0 +1,41 @@
+.controls {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  .left {
+    display: flex;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+
+    .search-input {
+      position: relative;
+
+      .search-box {
+        width: 250px;
+        height: 100%;
+        padding: 8px;
+        border: 1px solid #03003d;
+        border-radius: 4px;
+        
+        &:focus {
+          outline: none;
+        }
+
+        &:focus + button {
+          background-color: #03003d;
+          color: #fff;
+        }
+      }
+
+      button {
+        margin-left: 5px;
+      }
+    }
+  }
+}
