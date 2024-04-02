@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SidenavService } from './core/service/sidenav.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,12 @@ import { SidenavService } from './core/service/sidenav.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'frontsuperpecas';
+
+  constructor(private titleService: Title) {
+    this.setTitle('Super Peças');
+  }
+
+  setTitle(newTitle: string): void {
+    this.titleService.setTitle(newTitle);
+  }
 }
