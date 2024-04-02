@@ -1,1 +1,12 @@
-<p>modal-delete-car works!</p>
+<div class="modal">
+  <div class="header">
+    <h2>Confirmar Deleção</h2>
+  </div>
+  <div class="body">
+    <p>Tem certeza de que deseja excluir este carro?</p>
+    <div class="button-container">
+      <button mat-flat-button color="primary" (click)="confirmDelete()">Confirmar</button>
+      <button mat-flat-button color="primary" (click)="closeFormModal()">Cancelar</button>
+    </div>
+  </div>
+</div>

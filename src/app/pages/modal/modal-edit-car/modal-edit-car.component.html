@@ -1,1 +1,47 @@
-<p>modal-edit-car works!</p>
+<div class="modal">
+  <div class="header">
+    <h2>Editar Carro</h2>
+  </div>
+  <div class="body">
+    <form [formGroup]="carForm" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="modelName">Nome do Modelo *</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Insira o nome do modelo"
+          formControlName="modelName"
+          [autofocus]="false">
+        <small class="message-error" *ngIf="carForm.get('modelName')!.invalid && carForm.get('modelName')!.touched">
+          {{ getErrorMessage('modelName') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="manufacturer">Nome do fabricante *</label>
+        <select class="form-control" formControlName="manufacturer" [autofocus]="false">
+            <option value="">Selecione o fabricante</option>
+            <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">{{ manufacturer }}</option>
+        </select>
+        <small class="message-error" *ngIf="carForm.get('manufacturer')!.invalid && carForm.get('manufacturer')!.touched">
+            {{ getErrorMessage('manufacturer') }}
+        </small>
+      </div>    
+      <div class="field">
+        <label for="uniqueCode">Código único *</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Insira o código único"
+          formControlName="uniqueCode"
+          [autofocus]="false">
+        <small class="message-error" *ngIf="carForm.get('uniqueCode')!.invalid && carForm.get('uniqueCode')!.touched">
+          {{ getErrorMessage('uniqueCode') }}
+        </small>
+      </div>
+      <div class="button-container">
+        <button mat-flat-button color="primary" type="submit" [disabled]="carForm.invalid">Salvar</button>
+        <button mat-flat-button color="primary" type="button" (click)="closeFormModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

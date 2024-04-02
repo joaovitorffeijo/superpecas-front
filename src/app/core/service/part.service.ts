@@ -15,8 +15,9 @@ export class PartService {
     private http: HttpClient
   ) { }
 
-  getAllByPage(size: number, page: number): Observable<any> {
+  getAllByPage(name: string, size: number, page: number): Observable<any> {
     const params = new HttpParams()
+      .set('name', `${name}`)
       .set('size', `${size}`)
       .set('page', `${page}`);
 
@@ -27,13 +28,8 @@ export class PartService {
     return this.http.get<any>(`${environment.apiUrl}/${this.path}/${id}`);
   }
 
-  findByNameByPage(name: string, size: number, page: number): Observable<any> {
-    const params = new HttpParams()
-      .set('name', `${name}`)
-      .set('size', `${size}`)
-      .set('page', `${page}`);
-
-    return this.http.get(`${environment.apiUrl}/${this.path}/name`, { params }).pipe(first());
+  getAllManufacturers(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/${this.path}/manufactures`);
   }
 
   save(part: Part) {

@@ -1,1 +1,78 @@
-<p>modal-add-part works!</p>
+<div class="modal">
+  <div class="header">
+    <h2>Adicionar Peça</h2>
+  </div>
+  <div class="body">
+    <form [formGroup]="partForm" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="name">Nome *</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Insira o nome"
+          formControlName="name"
+          [autofocus]="false">
+        <small class="message-error" *ngIf="partForm.get('name')!.invalid && partForm.get('name')!.touched">
+          {{ getErrorMessage('name') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="description">Descrição</label>
+        <input
+          class="form-control"
+          type="textarea"
+          placeholder="Insira a descrição"
+          formControlName="description"
+          [autofocus]="false">
+      </div>
+      <div class="field">
+        <label for="serialNumber">Número de Série *</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Insira o número de Série"
+          formControlName="serialNumber"
+          [autofocus]="false">
+        <small class="message-error" *ngIf="partForm.get('serialNumber')!.invalid && partForm.get('serialNumber')!.touched">
+          {{ getErrorMessage('serialNumber') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="manufacturer">Nome do fabricante *</label>
+        <select class="form-control" formControlName="manufacturer" [autofocus]="false">
+            <option value="">Selecione o fabricante</option>
+            <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">{{ manufacturer }}</option>
+        </select>
+        <small class="message-error" *ngIf="partForm.get('manufacturer')!.invalid && partForm.get('manufacturer')!.touched">
+            {{ getErrorMessage('manufacturer') }}
+        </small>
+      </div>    
+      <div class="field">
+        <label for="carModel">Modelo do Carro *</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Insira o modelo do Carro"
+          formControlName="carModel"
+          [autofocus]="false">
+        <small class="message-error" *ngIf="partForm.get('carModel')!.invalid && partForm.get('carModel')!.touched">
+          {{ getErrorMessage('carModel') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="carId">Carro *</label>
+        <select class="form-control" formControlName="carId" [autofocus]="false">
+            <option value="0">Selecione o carro</option>
+            <option *ngFor="let car of cars" [value]="car.id">{{ car.modelName }}</option>
+        </select>
+        <small class="message-error" *ngIf="partForm.get('carId')!.invalid && partForm.get('carId')!.touched">
+            {{ getErrorMessage('carId') }}
+        </small>
+      </div>    
+      <div class="button-container">
+        <button mat-flat-button color="primary" type="submit" [disabled]="partForm.invalid">Salvar</button>
+        <button mat-flat-button color="primary" type="button" (click)="closeFormModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

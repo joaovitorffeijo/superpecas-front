@@ -5,6 +5,8 @@ import { Observable, catchError, forkJoin, tap } from 'rxjs';
 import { ApiResponse } from '../../core/model/apiResponse';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddCarComponent } from '../modal/modal-add-car/modal-add-car.component';
+import { ModalEditCarComponent } from '../modal/modal-edit-car/modal-edit-car.component';
+import { ModalDeleteCarComponent } from '../modal/modal-delete-car/modal-delete-car.component';
 
 @Component({
   selector: 'app-cars',
@@ -31,7 +33,7 @@ export class CarsComponent {
   modalSize: string = 'md';
 
   // table
-  displayedColumns: string[] = ['id', 'modelName', 'manufacturer', 'uniqueCode'];
+  displayedColumns: string[] = ['id', 'modelName', 'manufacturer', 'uniqueCode', 'actions'];
 
   constructor(
     private modalService: NgbModal,
@@ -76,7 +78,19 @@ export class CarsComponent {
   }
 
   onAdd(): void {
-    this.modalRef = this.modalService.open(ModalAddCarComponent, { size: this.modalSize, backdrop: 'static' });
+    this.modalRef = this.modalService.open(ModalAddCarComponent);
+    this.modalSuccess(this.modalRef);
+  }
+
+  onEdit(car: Car): void {
+    this.modalRef = this.modalService.open(ModalEditCarComponent);
+    this.modalRef.componentInstance.car = car;
+    this.modalSuccess(this.modalRef);
+  }  
+
+  onDelete(car: Car): void {
+    this.modalRef = this.modalService.open(ModalDeleteCarComponent);
+    this.modalRef.componentInstance.car = car;
     this.modalSuccess(this.modalRef);
   }
 
@@ -84,7 +98,7 @@ export class CarsComponent {
     this.modalRef!.result.then(
       (result) => { },
       (reason) => {
-        if (reason === 'success') {
+        if (reason === 'cancel') {
           this.changeLoadingValue();
           this.getData();
         }

@@ -28,6 +28,8 @@ import { ModalDeletePartComponent } from './pages/modal/modal-delete-part/modal-
 import { ModalDeleteMultipleCarComponent } from './pages/modal/modal-delete-multiple-car/modal-delete-multiple-car.component';
 import { ModalDeleteMultiplePartsComponent } from './pages/modal/modal-delete-multiple-parts/modal-delete-multiple-parts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatTableModule,
     MatProgressSpinnerModule,
     NgbModule,
+    ReactiveFormsModule,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [
     provideClientHydration(),

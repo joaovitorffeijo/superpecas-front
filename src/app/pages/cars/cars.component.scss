@@ -51,6 +51,18 @@
       td {
         border-bottom: 1px solid #ddd;
       }
+
+      .mat-column-actions {
+        width: 150px;
+
+        button {
+          color: #03003d;
+          border: none;
+          border-radius: 2px;
+          background-color: rgb(156, 156, 156);
+          margin-right: 10px;
+        }
+      }
     }
 
     .loader-container {

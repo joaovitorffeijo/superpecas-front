@@ -1,1 +1,64 @@
-<p>parts works!</p>
+<div class="container">
+  <div class="header">
+    <div class="title">
+      <img [src]="logoShortPath">
+      <h1> Listagem de Peças </h1>
+    </div>
+    <app-header-controls 
+      addPlaceholder="Adicionar Peça" 
+      searchPlaceholder="Pesquise pelo Nome da Peça"
+      (onSearch)="searchByPartName($event);"
+      (onAdd)="onAddPart()"
+    ></app-header-controls>
+  </div>
+  <div class="body">
+    <table *ngIf="!isLoading" mat-table [dataSource]="parts">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let part">{{ part.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let part">{{ part.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <td mat-cell *matCellDef="let part">{{ part.description }}</td>
+      </ng-container>
+      <ng-container matColumnDef="serialNumber">
+        <th mat-header-cell *matHeaderCellDef>Número de Série</th>
+        <td mat-cell *matCellDef="let part">{{ part.serialNumber }}</td>
+      </ng-container>
+      <ng-container matColumnDef="manufacturer">
+        <th mat-header-cell *matHeaderCellDef>Fabricante</th>
+        <td mat-cell *matCellDef="let part">{{ part.manufacturer }}</td>
+      </ng-container>
+      <ng-container matColumnDef="carModel">
+        <th mat-header-cell *matHeaderCellDef>Modelo do Carro</th>
+        <td mat-cell *matCellDef="let part">{{ part.carModel }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let part">
+          <button type="button" (click)="onEditPart(part)">
+            <mat-icon fontIcon="edit"></mat-icon>
+          </button>
+          <button type="button" (click)="onDeletePart(part)">
+            <mat-icon fontIcon="delete"></mat-icon>
+          </button>
+        </td>
+      </ng-container>      
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let part; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="isLoading" class="loader-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </div>
+  <mat-paginator [length]="totalElements"
+                 [pageSize]="size"
+                 [pageSizeOptions]="[10, 20, 50, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

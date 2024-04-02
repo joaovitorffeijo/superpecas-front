@@ -28,6 +28,14 @@ export class CarService {
     return this.http.get<any>(`${environment.apiUrl}/${this.path}/${id}`);
   }
 
+  getAllManufacturers(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/${this.path}/manufactures`);
+  }
+
+  getAllCars(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/${this.path}/cars`);
+  }
+
   save(car: Car) {
     return this.http.post(`${environment.apiUrl}/${this.path}/`, car);
   }
