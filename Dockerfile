@@ -1,8 +1,8 @@
 # Stage 1: Build Angular app
-FROM node:20-alpine as angular
+FROM node:18-alpine as angular
 WORKDIR /ng-app
 COPY package*.json ./
-RUN npm ci 
+RUN npm ci --force
 COPY . .
 RUN npm run build
 
